@@ -8,21 +8,16 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.Optional;
-
-
 public class HelloApplication extends Application {
      private Stage primaryStage;
 
      //greeting page
     @Override
-    public void start(Stage primaryStage) throws IOException {
+    public void start(Stage primaryStage){
         this.primaryStage = primaryStage;
         AnchorPane pane = new AnchorPane();
 
@@ -37,9 +32,7 @@ public class HelloApplication extends Application {
         btn_continue.setLayoutX(430);
         btn_continue.setLayoutY(460);
         btn_continue.setFont(javafx.scene.text.Font.font("Arial", FontWeight.LIGHT, 15));
-        btn_continue.setOnAction(actionEvent -> {
-            bookHall();
-        });
+        btn_continue.setOnAction(e-> bookHall());
         pane.getChildren().addAll(label, btn_continue);
         Scene scene = new Scene(pane, 1000, 800);
         primaryStage.setScene(scene);
@@ -72,9 +65,7 @@ public class HelloApplication extends Application {
         btn_book_main_audi.setLayoutX(150);
         btn_book_main_audi.setLayoutY(400);
         btn_book_main_audi.setFont(javafx.scene.text.Font.font("Arial", FontWeight.LIGHT, 15));
-        btn_book_main_audi.setOnAction(actionEvent -> {
-            addBooking(1);
-        });
+        btn_book_main_audi.setOnAction(actionEvent -> addBooking(1));
 
         //image and label for chancellor hall
         Image chancellor_hall_image = new Image("file:chancellor hall.jpg");
@@ -93,9 +84,7 @@ public class HelloApplication extends Application {
         btn_book_chancellor_hall.setLayoutX(500);
         btn_book_chancellor_hall.setLayoutY(400);
         btn_book_chancellor_hall.setFont(javafx.scene.text.Font.font("Arial", FontWeight.LIGHT, 15));
-        btn_book_chancellor_hall.setOnAction(actionEvent -> {
-            addBooking(2);
-        });
+        btn_book_chancellor_hall.setOnAction(actionEvent -> addBooking(2));
 
         //image and label for culture centre
         Image culture_centre_image = new Image("file:culture centre.jpg");
@@ -114,9 +103,7 @@ public class HelloApplication extends Application {
         btn_book_cultural_centre.setLayoutX(800);
         btn_book_cultural_centre.setLayoutY(400);
         btn_book_cultural_centre.setFont(javafx.scene.text.Font.font("Arial", FontWeight.LIGHT, 15));
-        btn_book_cultural_centre.setOnAction(actionEvent -> {
-            addBooking(3);
-        });
+        btn_book_cultural_centre.setOnAction(actionEvent -> addBooking(3));
 
         //image and label for rector hall
         Image rector_hall_image = new Image("file:rector hall.jpg");
@@ -135,9 +122,7 @@ public class HelloApplication extends Application {
         btn_book_rector_hall.setLayoutX(150);
         btn_book_rector_hall.setLayoutY(760);
         btn_book_rector_hall.setFont(javafx.scene.text.Font.font("Arial", FontWeight.LIGHT, 15));
-        btn_book_rector_hall.setOnAction(actionEvent -> {
-            addBooking(4);
-        });
+        btn_book_rector_hall.setOnAction(actionEvent -> addBooking(4));
 
         //image and label for great hall
         Image great_hall_image = new Image("file:greathallharrypotter.jpeg");
@@ -156,17 +141,13 @@ public class HelloApplication extends Application {
         btn_book_great_hall.setLayoutX(500);
         btn_book_great_hall.setLayoutY(760);
         btn_book_great_hall.setFont(javafx.scene.text.Font.font("Arial", FontWeight.LIGHT, 15));
-        btn_book_great_hall.setOnAction(actionEvent -> {
-            addBooking(5);
-        });
+        btn_book_great_hall.setOnAction(actionEvent -> addBooking(5));
 
         //button check availability
         Button btn_check_availability = new Button("Check Availability");
         btn_check_availability.setLayoutX(770);
         btn_check_availability.setLayoutY(650);
-        btn_check_availability.setOnAction(actionEvent -> {
-            checkAvailability();
-        });
+        btn_check_availability.setOnAction(actionEvent -> checkAvailability());
         pane.getChildren().addAll(label, main_audi, label_main_audi, chancellor_hall, label_chancellor_hall, culture_centre, label_culture_centre, rector_hall, label_rector_hall, great_hall, label_great_hall, btn_check_availability, btn_book_chancellor_hall, btn_book_cultural_centre, btn_book_great_hall, btn_book_main_audi, btn_book_rector_hall);
         Scene scene = new Scene(pane, 1000, 800);
         primaryStage.setScene(scene);
@@ -177,7 +158,6 @@ public class HelloApplication extends Application {
     public static void checkAvailability(){
         Stage stage = new Stage();
         AnchorPane pane = new AnchorPane();
-        Label label = new Label("Check Availability");
         for (int i = 0; i < HallBookingSystem.halls.length; i++) {
             Label hall = new Label("Hall");
             hall.setLayoutX(50);
@@ -204,9 +184,7 @@ public class HelloApplication extends Application {
             Button btn_back = new Button("Back");
             btn_back.setLayoutX(50);
             btn_back.setLayoutY(350);
-            btn_back.setOnAction(actionEvent -> {
-                stage.close();
-            });
+            btn_back.setOnAction(actionEvent -> stage.close());
             pane.getChildren().addAll(hall, availability, capacity, label_hall, label_availability, label_capacity, btn_back);
         }
 
@@ -219,43 +197,42 @@ public class HelloApplication extends Application {
         Booking booking = new Booking();
         Student student = new Student();
         Staff staff = new Staff();
-        Stage stage = new Stage();
         Person person = new Person();
         Label label = new Label("Booking Details");
         Label label_hall= new Label();
         Label label_capacity = new Label();
         Label label_availability = new Label();
-        AnchorPane pane = new AnchorPane();
+        AnchorPane addBookingPane = new AnchorPane();
         if (num == 1){ //if booking for main audi
             label = new Label("Booking Details");
             label_hall = new Label("Hall: "+HallBookingSystem.halls[0]);
             label_capacity = new Label("Capacity: "+Hall.getCapacity(0));
             label_availability = new Label("Availability: "+(Boolean.TRUE.equals(Hall.getAvailability(0)) ? "Available" : "Not Available"));
-            pane.getChildren().addAll(label, label_hall, label_capacity, label_availability);
+            addBookingPane.getChildren().addAll(label, label_hall, label_capacity, label_availability);
         } else if (num == 2){ //if booking for chancellor hall
             label = new Label("Booking Details");
             label_hall = new Label("Hall: "+HallBookingSystem.halls[1]);
             label_capacity = new Label("Capacity: "+Hall.getCapacity(1));
             label_availability = new Label("Availability: "+(Boolean.TRUE.equals(Hall.getAvailability(1)) ? "Available" : "Not Available"));
-            pane.getChildren().addAll(label, label_hall, label_capacity, label_availability);
+            addBookingPane.getChildren().addAll(label, label_hall, label_capacity, label_availability);
         } else if (num == 3){ //if booking for cultural centre
             label = new Label("Booking Details");
             label_hall = new Label("Hall: "+HallBookingSystem.halls[2]);
             label_capacity = new Label("Capacity: "+Hall.getCapacity(2));
             label_availability = new Label("Availability: "+(Boolean.TRUE.equals(Hall.getAvailability(2)) ? "Available" : "Not Available"));
-            pane.getChildren().addAll(label, label_hall, label_capacity, label_availability);
+            addBookingPane.getChildren().addAll(label, label_hall, label_capacity, label_availability);
         } else if (num == 4){ //if booking for rector hall
             label = new Label("Booking Details");
             label_hall = new Label("Hall: "+HallBookingSystem.halls[3]);
             label_capacity = new Label("Capacity: "+Hall.getCapacity(3));
             label_availability = new Label("Availability: "+(Boolean.TRUE.equals(Hall.getAvailability(3)) ? "Available" : "Not Available"));
-            pane.getChildren().addAll(label, label_hall, label_capacity, label_availability);
+            addBookingPane.getChildren().addAll(label, label_hall, label_capacity, label_availability);
         } else if (num == 5){ //if booking for great hall
             label = new Label("Booking Details");
             label_hall = new Label("Hall: "+HallBookingSystem.halls[4]);
             label_capacity = new Label("Capacity: "+Hall.getCapacity(4));
             label_availability = new Label("Availability: "+(Boolean.TRUE.equals(Hall.getAvailability(4)) ? "Available" : "Not Available"));
-            pane.getChildren().addAll(label, label_hall, label_capacity, label_availability);
+            addBookingPane.getChildren().addAll(label, label_hall, label_capacity, label_availability);
         }
         //set layout
         label.setLayoutX(95);
@@ -290,12 +267,12 @@ public class HelloApplication extends Application {
         text_faculty.setLayoutY(300);
 
         Label email = new Label("Email: ");
-        TextField text_contact = new TextField();
+        TextField text_email = new TextField();
         email.setLayoutX(100);
         email.setLayoutY(350);
         email.setFont(javafx.scene.text.Font.font("Arial", FontWeight.LIGHT, 20));
-        text_contact.setLayoutX(200);
-        text_contact.setLayoutY(350);
+        text_email.setLayoutX(200);
+        text_email.setLayoutY(350);
 
         Label label_date = new Label("Date: ");
         label_date.setLayoutX(100);
@@ -313,107 +290,91 @@ public class HelloApplication extends Application {
 
 
         Label label_student = new Label("Student ID: ");
-        TextField text_student = new TextField(); //text field to enter student ID
         Button btn_student = new Button("Student"); //button to choose student
+        TextField text_student = new TextField(); //text field to enter student ID
         btn_student.setLayoutX(100);
-        btn_student.setLayoutY(500);
-        btn_student.setOnAction(k -> {
-            label_student.setLayoutX(100);
-            label_student.setLayoutY(550);
-            label_student.setFont(javafx.scene.text.Font.font("Arial", FontWeight.LIGHT, 20));
-            text_student.setLayoutX(200);
-            text_student.setLayoutY(550);
-        });
+        button(addBookingPane, label_student, btn_student, text_student);
 
-        Label label_staff = new Label("Staff ID: ");
         TextField text_staff = new TextField(); //text field to enter staff ID
+        Label label_staff = new Label("Staff ID: ");
         Button btn_staff = new Button("Staff"); //button to choose staff
         btn_staff.setLayoutX(200);
-        btn_staff.setLayoutY(500);
-        btn_staff.setOnAction(k -> {
-            label_staff.setLayoutX(100);
-            label_staff.setLayoutY(550);
-            label_staff.setFont(javafx.scene.text.Font.font("Arial", FontWeight.LIGHT, 20));
-            text_staff.setLayoutX(200);
-            text_staff.setLayoutY(550);
-        });
+        button(addBookingPane, label_staff, btn_staff, text_staff);
 
         Button btn_book = new Button("Book"); //button to book
         btn_book.setLayoutX(100);
         btn_book.setLayoutY(600);
         btn_book.setOnAction(e -> {
-
             person.setNamePerson(text_name.getText()); //set name
             person.setFaculty(text_faculty.getText()); //set faculty
-            person.setEmail(text_contact.getText()); //set email
+            person.setEmail(text_email.getText()); //set email
             booking.setBookingDate(bookingDate.getValue()); //set date
-            staff.setStaffID(text_staff.getText()); //set staff ID
-            student.setStudentID(text_student.getText()); //set student ID
 
-            if (text_name.getText().isEmpty() || text_faculty.getText().isEmpty() || text_contact.getText().isEmpty() || bookingDate.getValue() == null){
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("Error");
-                alert.setContentText("Please fill in all the details");
-                alert.showAndWait();
+            // Check and parse student ID
+            String studentIDText = text_student.getText();
+            if (!studentIDText.isEmpty() && studentIDText.matches("\\d+")) {
+                int studentID = Integer.parseInt(studentIDText);
+                student.setStudentID(String.valueOf(studentID)); //set student ID
             } else {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Confirmation");
-                alert.setHeaderText("Confirmation");
-                alert.setContentText("Are you sure you want to book this hall?");
-                Optional<ButtonType> result = alert.showAndWait();
-                if (result.get() == ButtonType.OK){
-                     displayBooking(num);
-//                    Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
-//                    alert1.setTitle("Information");
-//                    alert1.setHeaderText("Information");
-//                    alert1.setContentText("Hall has been booked");
-//                    alert1.showAndWait();
-                }
+                student.setStudentID(""); // set empty student ID if not provided or invalid
             }
-        }
-        );
 
-        pane.getChildren().addAll(label_name, text_name, faculty, text_faculty, email, text_contact, label_date, bookingDate, position_question, btn_student, btn_staff, label_student, text_student, label_staff, text_staff, btn_book);
+            // Check and parse staff ID
+            String staffIDText = text_staff.getText();
+            if (!staffIDText.isEmpty() && staffIDText.matches("\\d+")) {
+                int staffID = Integer.parseInt(staffIDText);
+                staff.setStaffID(String.valueOf(staffID)); //set staff ID
+            } else {
+                staff.setStaffID(""); // set empty staff ID if not provided or invalid
+            }
 
-        Scene scene = new Scene(pane, 1000, 800);
+            //testing
+            System.out.println("testing..");
+            System.out.println(person.getNamePerson());
+            System.out.println(person.getFaculty());
+            System.out.println(person.getEmail());
+            System.out.println(booking.getBookingDate());
+            System.out.println("staff: "+staff.getStaffID());
+            System.out.println("student: "+student.getStudentID());
+
+            System.out.println("staff id: "+staff.getStaffID());
+            System.out.println("student id: "+student.getStudentID());
+
+            int studentID = !student.getStudentID().isEmpty() ? Integer.parseInt(student.getStudentID()) : 0; //get student ID
+            int staffID = !staff.getStaffID().isEmpty() ? Integer.parseInt(staff.getStaffID()) : 0; //get staff ID
+
+            //after parse, the value is null, fucek sial
+
+            displayBooking(num, person.getNamePerson(), person.getFaculty(), person.getEmail(), booking.getBookingDate(), staffID,studentID); //go to display booking page
+        });
+
+        addBookingPane.getChildren().addAll(label_name, text_name, faculty, text_faculty, email, text_email, label_date, bookingDate, position_question, btn_student, btn_staff, btn_book   );
+
+        Scene scene = new Scene(addBookingPane, 1000, 800);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-//    //if the person is a student
-//    public static void student_section(AnchorPane pane){
-//        Student student = new Student();
-//        Label label_student = new Label("Student ID: ");
-//        TextField text_student = new TextField(); //text field to enter student ID
-//        student.setStudentID(text_student.getText());
-//        label_student.setLayoutX(100);
-//        label_student.setLayoutY(550);
-//        label_student.setFont(javafx.scene.text.Font.font("Arial", FontWeight.LIGHT, 20));
-//        text_student.setLayoutX(200);
-//        text_student.setLayoutY(550);
-//        pane.getChildren().addAll(label_student, text_student);
-//    }
-//
-//    //if the person is a staff
-//    public static void staff_section(AnchorPane pane){
-//        Staff staff = new Staff();
-//        Label label_staff = new Label("Staff ID: ");
-//        TextField text_staff = new TextField(); //text field to enter staff ID
-//        staff.setStaffID(text_staff.getText());
-//        label_staff.setLayoutX(100);
-//        label_staff.setLayoutY(550);
-//        label_staff.setFont(javafx.scene.text.Font.font("Arial", FontWeight.LIGHT, 20));
-//        text_staff.setLayoutX(200);
-//        text_staff.setLayoutY(550);
-//        pane.getChildren().addAll(label_staff, text_staff);
-//    }
+    private void button(AnchorPane addBookingPane, Label label_student, Button btn_student, TextField text_student) {
+        btn_student.setLayoutY(500);
+        btn_student.setOnAction(k -> {
+            label_student.setLayoutX(100);
+            label_student.setLayoutY(550);
+            label_student.setFont(Font.font("Arial", FontWeight.LIGHT, 20));
+            text_student.setLayoutX(200);
+            text_student.setLayoutY(550);
+            addBookingPane.getChildren().addAll(label_student, text_student);
+        });
+    }
 
     //display booking
-    public void displayBooking(int hall_num){
+    public void displayBooking(int hall_num, String name, String faculty, String email, LocalDate date, int staff_id, int student_id){
+
+        System.out.println("student id after parse: "+student_id);
+        System.out.println("staff id after parse: "+staff_id);
+
         AnchorPane pane = new AnchorPane();
         ImageView hall_image_view = null;
-        Booking booking = new Booking();
         Student student = new Student();
         Staff staff = new Staff();
         Label label = new Label("Your Booking");
@@ -422,27 +383,21 @@ public class HelloApplication extends Application {
         label.setFont(javafx.scene.text.Font.font("Arial", FontWeight.BOLD, 45));
         label.setPadding(new Insets(0, 0, 70, 0));
         Label label_hall_name = new Label();
-        Label label_person_name = new Label();
-        Label label_faculty = new Label();
-        Label label_email = new Label();
         Label person_id = new Label();
-        Label label_date = new Label();
-        System.out.println(student.getStudentID());
-        System.out.println(staff.getStaffID());
 
-        int student_id = Integer.parseInt(student.getStudentID()); //WHY RETURN NULL !!!!!!!!!!!!!!!!!!!!!!!!!
-        int staff_id = Integer.parseInt(staff.getStaffID());
-
-        if (student_id <= 9999999){
+        if (student_id >= 1000000 && student_id <= 9999999){ //if student ID is valid
             if (hall_num == 1){
                 hall_image_view = new ImageView(new Image("file:main audi.jpg"));
-                hall_image_view.setFitHeight(300);
-                hall_image_view.setFitWidth(300);
+                hall_image_view.setFitHeight(250);
+                hall_image_view.setFitWidth(243);
                 hall_image_view.setLayoutX(100);
                 hall_image_view.setLayoutY(100);
                 label_hall_name = new Label(HallBookingSystem.halls[0]);
+                label_hall_name.setLayoutX(100);
+                label_hall_name.setLayoutY(500);
+                label_hall_name.setFont(javafx.scene.text.Font.font("Arial", FontWeight.LIGHT, 20));
                 person_id = new Label(student.getStudentID());
-                displayBookingPersonDetails(label_person_name, label_faculty, label_email, label_date, pane);
+                displayBookingPersonDetails(pane, name, faculty, email, date);
 
             } else if (hall_num == 2){
                 hall_image_view = new ImageView(new Image("file:chancellor hall.jpg"));
@@ -451,8 +406,11 @@ public class HelloApplication extends Application {
                 hall_image_view.setLayoutX(100);
                 hall_image_view.setLayoutY(100);
                 label_hall_name = new Label(HallBookingSystem.halls[1]);
+                label_hall_name.setLayoutX(100);
+                label_hall_name.setLayoutY(500);
+                label_hall_name.setFont(javafx.scene.text.Font.font("Arial", FontWeight.LIGHT, 20));
                 person_id = new Label(student.getStudentID());
-                displayBookingPersonDetails(label_person_name, label_faculty, label_email, label_date, pane);
+                displayBookingPersonDetails(pane, name, faculty, email, date);
 
             } else if (hall_num == 3){
                 hall_image_view = new ImageView(new Image("file:culture centre.jpg"));
@@ -461,8 +419,11 @@ public class HelloApplication extends Application {
                 hall_image_view.setLayoutX(100);
                 hall_image_view.setLayoutY(100);
                 label_hall_name = new Label(HallBookingSystem.halls[2]);
+                label_hall_name.setLayoutX(100);
+                label_hall_name.setLayoutY(500);
+                label_hall_name.setFont(javafx.scene.text.Font.font("Arial", FontWeight.LIGHT, 20));
                 person_id = new Label(student.getStudentID());
-                displayBookingPersonDetails(label_person_name, label_faculty, label_email, label_date, pane);
+                displayBookingPersonDetails(pane, name, faculty, email, date);
 
             } else if (hall_num == 4){
                 hall_image_view = new ImageView(new Image("file:rector hall.jpg"));
@@ -471,21 +432,28 @@ public class HelloApplication extends Application {
                 hall_image_view.setLayoutX(100);
                 hall_image_view.setLayoutY(100);
                 label_hall_name = new Label(HallBookingSystem.halls[3]);
+                label_hall_name.setLayoutX(100);
+                label_hall_name.setLayoutY(500);
+                label_hall_name.setFont(javafx.scene.text.Font.font("Arial", FontWeight.LIGHT, 20));
                 person_id = new Label(student.getStudentID());
-                displayBookingPersonDetails(label_person_name, label_faculty, label_email, label_date, pane);
+                displayBookingPersonDetails(pane, name, faculty, email, date);
 
             } else if (hall_num == 5){
-                hall_image_view = new ImageView(new Image("file:great hall.jpg"));
+                hall_image_view = new ImageView(new Image("file:greathallharrypotter.jpeg"));
                 hall_image_view.setFitHeight(300);
                 hall_image_view.setFitWidth(300);
                 hall_image_view.setLayoutX(100);
                 hall_image_view.setLayoutY(100);
                 label_hall_name = new Label(HallBookingSystem.halls[4]);
+                label_hall_name.setLayoutX(100);
+                label_hall_name.setLayoutY(500);
+                label_hall_name.setFont(javafx.scene.text.Font.font("Arial", FontWeight.LIGHT, 20));
                 person_id = new Label(student.getStudentID());
-                displayBookingPersonDetails(label_person_name, label_faculty, label_email, label_date, pane);
+                displayBookingPersonDetails(pane, name, faculty, email, date);
 
             }
-        } else if (staff_id >= 0 && staff_id <= 9999) {
+        }
+        if (staff_id > 0 && staff_id <=9999) { //if staff ID is valid
             if (hall_num == 1){
                 hall_image_view = new ImageView(new Image("file:main audi.jpg"));
                 hall_image_view.setFitHeight(300);
@@ -493,8 +461,11 @@ public class HelloApplication extends Application {
                 hall_image_view.setLayoutX(100);
                 hall_image_view.setLayoutY(100);
                 label_hall_name = new Label(HallBookingSystem.halls[0]);
+                label_hall_name.setLayoutX(100);
+                label_hall_name.setLayoutY(500);
+                label_hall_name.setFont(javafx.scene.text.Font.font("Arial", FontWeight.LIGHT, 20));
                 person_id = new Label(staff.getStaffID());
-                displayBookingPersonDetails(label_person_name, label_faculty, label_email, label_date, pane);
+                displayBookingPersonDetails(pane, name, faculty, email, date);
 
             } else if (hall_num == 2){
                 hall_image_view = new ImageView(new Image("file:chancellor hall.jpg"));
@@ -503,8 +474,11 @@ public class HelloApplication extends Application {
                 hall_image_view.setLayoutX(100);
                 hall_image_view.setLayoutY(100);
                 label_hall_name = new Label(HallBookingSystem.halls[1]);
+                label_hall_name.setLayoutX(100);
+                label_hall_name.setLayoutY(500);
+                label_hall_name.setFont(javafx.scene.text.Font.font("Arial", FontWeight.LIGHT, 20));
                 person_id = new Label(staff.getStaffID());
-                displayBookingPersonDetails(label_person_name, label_faculty, label_email, label_date, pane);
+                displayBookingPersonDetails(pane, name, faculty, email, date);
 
             } else if (hall_num == 3){
                 hall_image_view = new ImageView(new Image("file:culture centre.jpg"));
@@ -513,8 +487,11 @@ public class HelloApplication extends Application {
                 hall_image_view.setLayoutX(100);
                 hall_image_view.setLayoutY(100);
                 label_hall_name = new Label(HallBookingSystem.halls[2]);
+                label_hall_name.setLayoutX(100);
+                label_hall_name.setLayoutY(500);
+                label_hall_name.setFont(javafx.scene.text.Font.font("Arial", FontWeight.LIGHT, 20));
                 person_id = new Label(staff.getStaffID());
-                displayBookingPersonDetails(label_person_name, label_faculty, label_email, label_date, pane);
+                displayBookingPersonDetails(pane, name, faculty, email, date);
 
             } else if (hall_num == 4){
                 hall_image_view = new ImageView(new Image("file:rector hall.jpg"));
@@ -523,48 +500,76 @@ public class HelloApplication extends Application {
                 hall_image_view.setLayoutX(100);
                 hall_image_view.setLayoutY(100);
                 label_hall_name = new Label(HallBookingSystem.halls[3]);
+                label_hall_name.setLayoutX(100);
+                label_hall_name.setLayoutY(500);
+                label_hall_name.setFont(javafx.scene.text.Font.font("Arial", FontWeight.LIGHT, 20));
                 person_id = new Label(staff.getStaffID());
-                displayBookingPersonDetails(label_person_name, label_faculty, label_email, label_date, pane);
+                displayBookingPersonDetails(pane, name, faculty, email, date);
 
             } else if (hall_num == 5){
-                hall_image_view = new ImageView(new Image("file:great hall.jpg"));
+                hall_image_view = new ImageView(new Image("file:greathallharrypotter.jpeg"));
                 hall_image_view.setFitHeight(300);
                 hall_image_view.setFitWidth(300);
                 hall_image_view.setLayoutX(100);
                 hall_image_view.setLayoutY(100);
                 label_hall_name = new Label(HallBookingSystem.halls[4]);
+                label_hall_name.setLayoutX(100);
+                label_hall_name.setLayoutY(500);
+                label_hall_name.setFont(javafx.scene.text.Font.font("Arial", FontWeight.LIGHT, 20));
                 person_id = new Label(staff.getStaffID());
-                displayBookingPersonDetails(label_person_name, label_faculty, label_email, label_date, pane);
+                displayBookingPersonDetails(pane, name, faculty, email, date);
             }
 
         }
         label_hall_name.setLayoutX(100);
-        label_hall_name.setLayoutY(400);
+        label_hall_name.setLayoutY(450);
+        label_hall_name.setFont(Font.font("Arial", FontWeight.LIGHT, 20));
         person_id.setLayoutX(100);
         person_id.setLayoutY(450);
-        label_person_name.setLayoutX(100);
-        label_person_name.setLayoutY(500);
-        label_faculty.setLayoutX(100);
-        label_faculty.setLayoutY(550);
-        label_email.setLayoutX(100);
-        label_email.setLayoutY(600);
-        label_date.setLayoutX(100);
-        label_date.setLayoutY(650);
-        pane.getChildren().addAll(hall_image_view, person_id, label_person_name, label_faculty, label_email, label_date);
+        pane.getChildren().addAll(label, person_id, hall_image_view, label_hall_name);
 
         Scene scene = new Scene(pane, 1000, 800);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-    public static void displayBookingPersonDetails( Label label_person_name, Label label_faculty, Label label_email, Label label_date, AnchorPane pane){
-        Booking booking = new Booking();
-        Student student = new Student();
-        Staff staff = new Staff();
-        label_person_name = new Label(student.getNamePerson());
-        label_faculty = new Label(student.getFaculty());
-        label_email = new Label(student.getEmail());
-        label_date = new Label(booking.getBookingDate().toString());
+    public void displayBookingPersonDetails(AnchorPane pane, String name, String faculty, String email, LocalDate date){
+        Button confirm = new Button("Confirm");
+
+        Label label_person_name = new Label("Name: " + name);
+        Label label_faculty = new Label("Faculty: " + faculty);
+        Label label_email = new Label("Email: " + email);
+        Label label_date = new Label("Date: " + date.toString());
+
+        label_person_name.setLayoutX(100);
+        label_person_name.setLayoutY(500);
+        label_person_name.setFont(Font.font("Arial", FontWeight.LIGHT, 20));
+        label_faculty.setLayoutX(100);
+        label_faculty.setLayoutY(550);
+        label_faculty.setFont(Font.font("Arial", FontWeight.LIGHT, 20));
+        label_email.setLayoutX(100);
+        label_email.setLayoutY(600);
+        label_email.setFont(Font.font("Arial", FontWeight.LIGHT, 20));
+        label_date.setLayoutX(100);
+        label_date.setLayoutY(650);
+        label_date.setFont(Font.font("Arial", FontWeight.LIGHT, 20));
+        confirm.setLayoutX(100);
+        confirm.setLayoutY(700);
+        confirm.setOnAction(e -> closingPage());
+
+        pane.getChildren().addAll(label_person_name, label_faculty, label_email, label_date, confirm);
+    }
+
+    public void closingPage(){
+        AnchorPane pane = new AnchorPane();
+        Label label = new Label("Thank you for booking");
+        label.setLayoutX(230);
+        label.setLayoutY(300);
+        label.setFont(Font.font("Arial", FontWeight.BOLD, 50));
+        pane.getChildren().add(label);
+        Scene scene = new Scene(pane, 1000, 800);
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 
     public static void main(String[] args) {
@@ -577,106 +582,36 @@ class HallBookingSystem {
     public static String[] halls = {"Main Auditorium", "Chancellor Hall", "Culture Centre", "Rector Hall", "Great Hall"};
     public static void main(String[] args) {
 
-//        bookHall();
-//        addBooking();
-//        checkAvailability();
-//        displayBooking();
-
-    }
-
-    public static void cancelBooking(){
-        System.out.println("Cancel Booking");
-    }
-
-    public static void displayBooking(){
-        System.out.println("Display Booking");
     }
 }
 
 //Hall
 class Hall {
-    private String hallName;
     static int[] capacity = {1000, 500, 2000, 1500, 3000};
     static boolean[] availability={true, true, true, true, true};
-    private Booking bookingDetails;
-//    private String[] hall_image = {"main audi.jpg", "chancellor hall.jpg", "culture centre.jpg", "rector hall.jpg", "greathallharyypotter.jpeg"};
 
     public Hall() {
     }
-
-    public Hall(String hallName, int capacity, boolean availability, Booking bookingDetails) {
-        this.hallName = hallName;
-        this.capacity = new int[]{capacity};
-        this.availability = new boolean[]{availability};
-        this.bookingDetails = bookingDetails;
-    }
-
-    public String getHallName() {
-        return hallName;
-    }
-
-    public void setHallName(String hallName) {
-        this.hallName = hallName;
-    }
-
     public static Integer getCapacity(int i) {
-        for (int j = 0; j < capacity.length; j++) {
-            return capacity[i];
+        for (int k : capacity) {
+            return k;
         }
         return null;
     }
-
-    public void setCapacity(int capacity) {
-        this.capacity = new int[]{capacity};
-    }
-
     public static Boolean getAvailability(int i) {
-        for (int j = 0; j < availability.length; j++) {
-            return availability[i];
+        for (boolean b : availability) {
+            return b;
         }
         return null;
     }
-
-    public void setAvailability(boolean availability) {
-        this.availability = new boolean[]{availability};
-    }
-
-    public Booking getBookingDetails() {
-        return bookingDetails;
-    }
-
-    public void addBookingDetails(Booking bookingDetails) {
-        this.bookingDetails = bookingDetails;
-    }
-    public void removeBookingDetails(Booking bookingDetails) {
-        this.bookingDetails = bookingDetails;
-    }
-
 }
 
 //Booking
 class Booking {
     LocalDate bookingDate;
-    Person person;
-    Hall hall;
 
     Booking(){
 
-    }
-    Booking(int bookingID){
-
-    }
-    Booking(int bookingID, Date bookingDate){
-
-    }
-    Booking(int bookingID, Date bookingDate,Person person){
-
-    }
-    Booking(int bookingID, Date bookingDate,Person person,Hall hall){
-
-    }
-    Booking(LocalDate bookingDate){
-        this.bookingDate = bookingDate;
     }
     public void setBookingDate(LocalDate bookingDate) {
         this.bookingDate = bookingDate;
@@ -685,22 +620,6 @@ class Booking {
     public LocalDate getBookingDate() {
         return bookingDate;
     }
-
-    public Person getPerson() {
-        return person;
-    }
-
-    public void setPerson(Person person) {
-        this.person = person;
-    }
-
-    public Hall getHall() {
-        return hall;
-    }
-
-    public void setHall(Hall hall) {
-        this.hall = hall;
-    }
 }
 
 //Person
@@ -708,13 +627,6 @@ class Person {
     String namePerson;
     String faculty;
     String email;
-
-    public Person (String namePerson, String faculty, String email){
-        this.namePerson = namePerson;
-        this.faculty = faculty;
-        this.email = email;
-    }
-
     public Person() {
 
     }
@@ -751,14 +663,9 @@ class Person {
 
  class Staff extends Person {
     private String staffID;
-
-    public Staff(String namePerson, String faculty, String email, String staffID) {
-        super(namePerson, faculty, email);
-        this.staffID = staffID;
-    }
-
      public Staff() {
         super();
+        staffID = "";
      }
 
      public String getStaffID() {
@@ -773,13 +680,9 @@ class Person {
 
 class Student extends Person{
     private String studentID;
-    public Student(String namePerson, String faculty, String email, String studentID) {
-        super(namePerson, faculty, email);
-        this.studentID = studentID;
-    }
-
     public Student() {
         super();
+        studentID = "";
     }
 
     public String getStudentID() {
