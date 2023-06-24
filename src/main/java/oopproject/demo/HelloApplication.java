@@ -655,10 +655,6 @@ class Person {
         this.email = email;
     }
 
-    public String toString(){
-        return "Name: " + namePerson + "\n" + "Faculty: " +
-                faculty + "\n" + "Contact: " + email + "\n";
-    }
 }
 
  class Staff extends Person {
