@@ -343,8 +343,6 @@ public class HelloApplication extends Application {
             int studentID = !student.getStudentID().isEmpty() ? Integer.parseInt(student.getStudentID()) : 0; //get student ID
             int staffID = !staff.getStaffID().isEmpty() ? Integer.parseInt(staff.getStaffID()) : 0; //get staff ID
 
-            //after parse, the value is null, fucek sial
-
             displayBooking(num, person.getNamePerson(), person.getFaculty(), person.getEmail(), booking.getBookingDate(), staffID,studentID); //go to display booking page
         });
 
